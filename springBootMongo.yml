@@ -19,7 +19,7 @@ stringData:   # We can define multiple key value pairs.
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-hostpath
+  name: pv-hostpath1
 spec:
   storageClassName: manual
   capacity:
@@ -27,12 +27,12 @@ spec:
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: "/tmp/mongodata"
+    path: "/tmp/mongodata1"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-hostpath
+  name: pvc-hostpath1
 spec:
   storageClassName: manual
   accessModes:
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
       - name: springappcontainer
-        image: 97doc/spring-boot-mongo:V4
+        image: indium01/spring-boot-mongo:V7
         ports:
         - containerPort: 8080
         env:
@@ -105,9 +105,9 @@ spec:
          app: mongodb
      spec:
        volumes:
-       - name: mongodb-pvc
+       - name: mongodb-pvc1
          persistentVolumeClaim:
-           claimName: pvc-hostpath
+           claimName: pvc-hostpath1
        containers:
        - name: mongodbcontainer
          image: mongo:4.4.18
@@ -125,8 +125,8 @@ spec:
                name: springappsecrets
                key: password
          volumeMounts:
-         - name: mongodb-pvc
-           mountPath: /data/db
+         - name: mongodb-pvc1
+           mountPath: /data/db1
 ---
 apiVersion: v1
 kind: Service
